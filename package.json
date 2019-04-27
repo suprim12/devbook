@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "sesrver":"nodemon index.js"
+    "sesrver": "nodemon index.js"
   },
   "author": "suprim golay",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
+    "gravatar": "^1.8.0",
     "joi": "^14.3.1",
     "mongoose": "^5.5.4",
     "passport": "^0.4.0",
