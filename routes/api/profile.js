@@ -90,4 +90,5 @@ router.post(
       .catch(err => console.error("findOne Error", err));
   }
 );
+console.log("will only be shown in profile api branch");
 module.exports = router;
