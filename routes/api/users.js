@@ -85,6 +85,7 @@ router.get(
       email: req.user.email,
       avatar: req.user.avatar
     });
+    res.send("user_api branch will only show this");
   }
 );
 module.exports = router;
