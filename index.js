@@ -24,7 +24,6 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log(`Connected to db`))
   .catch(err => console.error(`Connection Error ${err}`));
-
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
