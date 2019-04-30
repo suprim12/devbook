@@ -96,28 +96,26 @@ const profileSchema = new mongoose.Schema({
       }
     }
   ],
-  social: [
-    {
-      youtube: {
-        type: String
-      },
-      twitter: {
-        type: String
-      },
-      facebook: {
-        type: String
-      },
-      instagram: {
-        type: String
-      },
-      linkedin: {
-        type: String
-      },
-      behance: {
-        type: String
-      }
+  social: {
+    youtube: {
+      type: String
+    },
+    twitter: {
+      type: String
+    },
+    facebook: {
+      type: String
+    },
+    instagram: {
+      type: String
+    },
+    linkedin: {
+      type: String
+    },
+    behance: {
+      type: String
     }
-  ],
+  },
   date: {
     type: Date,
     default: Date.now
@@ -141,11 +139,43 @@ function profileValidation(profile) {
     skills: Joi.string().required(),
     bio: Joi.string().optional(),
     githubusername: Joi.string().optional(),
-    exprience: Joi.optional(),
-    education: Joi.optional(),
-    social: Joi.optional()
+    youtube: Joi.string(),
+    facebook: Joi.string(),
+    twitter: Joi.string(),
+    instagram: Joi.string(),
+    linkedin: Joi.string(),
+    behance: Joi.string()
   };
+
   return Joi.validate(profile, schema);
 }
+function exprienceValidation(exp) {
+  const schema = {
+    title: Joi.string().required(),
+    company: Joi.string().required(),
+    location: Joi.string(),
+    current: Joi.string(),
+    from: Joi.string().required(),
+    to: Joi.string(),
+    description: Joi.string()
+  };
+  return Joi.validate(exp, schema);
+}
+function educationValidationteEdu(exp) {
+  const schema = {
+    school: Joi.string().required(),
+    degree: Joi.string().required(),
+    field: Joi.string(),
+    location: Joi.string(),
+    current: Joi.string(),
+    from: Joi.string().required(),
+    to: Joi.string(),
+    description: Joi.string()
+  };
+  return Joi.validate(exp, schema);
+}
+
 exports.Profile = Profile;
 exports.Validate = profileValidation;
+exports.ValidateExp = exprienceValidation;
+exports.ValidateEdu = educationValidationteEdu;
