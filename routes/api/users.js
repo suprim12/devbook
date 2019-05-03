@@ -53,7 +53,6 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-
   // Check Email Exist
   Users.findOne({ email: email }).then(user => {
     if (!user) {
