@@ -1,33 +1,132 @@
-.App {
-  text-align: center;
+body{
+    background:#212121;
+    color: snow;
+    margin: 0;
+    padding: 0;
+    font-family: 'Karla', sans-serif;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+body,html{
+    height: 100%;
+    width: 100%;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-
-.App-link {
-  color: #61dafb;
+p{
+    padding: 0;
+    margin: 0
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+img{
+    max-width: 100%;
+}
+html, body, form, main {
+    height: 100%;
+}
+.navbar-brand{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+.navbar-brand span{
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+}
+.app-footer{
+    position:absolute;
+    width: 100%;
+    background-color: #343A40;
+    bottom: 0;
+}
+.app-footer p{
+    font-size: 0.875rem;
+    letter-spacing: 0.2px;
+}
+.app-landing{
+    overflow: hidden;
+}
+.app-landing .landing-img{
+   position: relative;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   width: 100%;
+   height: 88.4vh;
+   object-fit: cover;
+   object-position:center;
+   transform: scale(1);
+   animation: scaleanime 1s forwards linear;
+}
+@keyframes scaleanime{
+    from{
+        transform: scale(1);
+       animation-timing-function: ease-in;
+    }
+    to{
+        transform: scale(1.02);
+        animation-timing-function: ease-in;
+    }
+}
+.app-landing .landing-content{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 75%;
+}
+.app-landing .landing-content .title{
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    animation: scaleanime 1s forwards linear;
+    animation-delay: 1s;
+}
+.app-landing .landing-content p{
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+.app-landing .landing-content .landing-btns{
+    display: flex;
+    margin-top: 2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+.app-landing .landing-content .landing-content-right img{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 425px;
+}
+.app-form{
+    display: block;
+    width: 100%;
+    height: 88.4vh;
+    display: flex;
+    align-items: center;
+}
+.app-form form input[type="text"],input[type="email"],input[type="password"]{
+    background: #272727;
+    border: 1px solid #212121;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+    color: snow;
+}
+.app-form form input[type="text"]:hover,input[type="email"]:hover,input[type="password"]:hover{
+    background: #272727;
+    border: 1px solid #212121;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+    color: snow;
+}
+.app-form form input[type="text"]:focus,input[type="email"]:focus,input[type="password"]:focus{
+    background: #272727;
+    border: 1px solid #212121;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+    color: snow;
+}
+.is-invalid{
+    border:  1px solid salmon !important;
 }

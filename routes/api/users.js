@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 router.post("/register", (req, res) => {
   // Validation
   const { error } = Validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).json(error.details[0]);
   // Check Email
   Users.findOne({ email: req.body.email }).then(user => {
     if (user) {

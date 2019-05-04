@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
 const Users = new mongoose.model("users", userSchema);
 // Validation
 function userValidation(user) {
-  const schema = {
+  const schema = Joi.object().keys({
     name: Joi.string()
       .min(3)
       .max(30)
@@ -28,10 +28,10 @@ function userValidation(user) {
       .max(30)
       .required(),
     password: Joi.string()
-      .min(3)
+      .min(6)
       .required(),
     avatar: Joi.string()
-  };
+  });
   return Joi.validate(user, schema);
 }
 exports.Users = Users;
