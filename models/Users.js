@@ -34,5 +34,20 @@ function userValidation(user) {
   });
   return Joi.validate(user, schema);
 }
+function loginValidation(user) {
+  const schema = Joi.object().keys({
+    email: Joi.string()
+      .email()
+      .min(3)
+      .max(30)
+      .required(),
+    password: Joi.string()
+      .min(6)
+      .required(),
+    avatar: Joi.string()
+  });
+  return Joi.validate(user, schema);
+}
 exports.Users = Users;
 exports.Validate = userValidation;
+exports.loginValidate = loginValidation;

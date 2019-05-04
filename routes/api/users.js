@@ -6,7 +6,7 @@ const router = express.Router();
 const keys = require("../../config/keys");
 const passport = require("passport");
 // Models
-const { Users, Validate } = require("../../models/Users");
+const { Users, Validate, loginValidate } = require("../../models/Users");
 
 router.get("/", (req, res) => {
   res.send("users");
@@ -51,6 +51,9 @@ router.post("/register", (req, res) => {
 });
 // Login
 router.post("/login", (req, res) => {
+  // Validation
+  const { error } = loginValidate(req.body);
+  if (error) return res.status(400).json(error.details[0]);
   const email = req.body.email;
   const password = req.body.password;
   // Check Email Exist

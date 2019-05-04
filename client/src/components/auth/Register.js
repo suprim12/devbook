@@ -38,9 +38,6 @@ class Register extends Component {
     };
     if (this.state.password === this.state.password2) {
       this.props.registeruser(newUser, this.props.history);
-      this.setState({
-        errors: {}
-      });
     }
   };
   errorCheck = key => {
@@ -50,7 +47,6 @@ class Register extends Component {
       }
       return false;
     }
-    return false;
   };
   render() {
     const { name, email, password, password2, errors } = this.state;
@@ -77,7 +73,6 @@ class Register extends Component {
                       onChange={this.handleChange}
                     />
                     <span className="invalid-feedback">
-                      {" "}
                       {this.errorCheck("name") ? errors.message : ""}
                     </span>
                   </div>

@@ -130,3 +130,6 @@ html, body, form, main {
 .is-invalid{
     border:  1px solid salmon !important;
 }
+.avatar{
+    border-radius: 50%;
+}
