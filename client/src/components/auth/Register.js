@@ -37,15 +37,10 @@ class Register extends Component {
       password: this.state.password
     };
     if (this.state.password === this.state.password2) {
+      this.setState({
+        errors: {}
+      });
       this.props.registeruser(newUser, this.props.history);
-    }
-  };
-  errorCheck = key => {
-    if (Object.keys(this.state.errors).length >= 1) {
-      if (this.state.errors.message.includes(key)) {
-        return true;
-      }
-      return false;
     }
   };
   render() {
@@ -63,7 +58,7 @@ class Register extends Component {
                     <InputField
                       type="text"
                       className={
-                        this.errorCheck("name")
+                        errors.type === "name"
                           ? "is-invalid form-control"
                           : "form-control"
                       }
@@ -72,15 +67,13 @@ class Register extends Component {
                       value={name}
                       onChange={this.handleChange}
                     />
-                    <span className="invalid-feedback">
-                      {this.errorCheck("name") ? errors.message : ""}
-                    </span>
+                    <span className="invalid-feedback">{errors.msg}</span>
                   </div>
                   <div className="form-group">
                     <InputField
                       type="email"
                       className={
-                        this.errorCheck("email")
+                        errors.type === "email"
                           ? "is-invalid form-control"
                           : "form-control"
                       }
@@ -89,15 +82,13 @@ class Register extends Component {
                       value={email}
                       onChange={this.handleChange}
                     />
-                    <span className="invalid-feedback">
-                      {this.errorCheck("email") ? errors.message : ""}
-                    </span>
+                    <span className="invalid-feedback">{errors.msg}</span>
                   </div>
                   <div className="form-group">
                     <InputField
                       type="password"
                       className={
-                        this.errorCheck("password")
+                        errors.type === "password"
                           ? "is-invalid form-control"
                           : "form-control"
                       }
@@ -106,9 +97,7 @@ class Register extends Component {
                       value={password}
                       onChange={this.handleChange}
                     />
-                    <span className="invalid-feedback">
-                      {this.errorCheck("password") ? errors.message : ""}
-                    </span>
+                    <span className="invalid-feedback">{errors.msg}</span>
                   </div>
                   <div className="form-group">
                     <InputField

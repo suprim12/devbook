@@ -41,19 +41,6 @@ class Login extends Component {
     };
     this.props.loginuser(newUser);
   };
-  errorCheck = key => {
-    if (
-      Object.keys(this.state.errors).length >= 1 &&
-      Object.values(this.state.errors) !== null
-    ) {
-      if (this.state.errors.message) {
-        if (this.state.errors.message.indexOf(key) !== -1) {
-          return true;
-        }
-      }
-      return false;
-    }
-  };
   render() {
     const { email, password, errors } = this.state;
     return (
@@ -69,7 +56,7 @@ class Login extends Component {
                     <InputField
                       type="email"
                       className={
-                        this.errorCheck("email") || errors.email
+                        errors.type === "email"
                           ? "is-invalid form-control"
                           : "form-control"
                       }
@@ -78,16 +65,13 @@ class Login extends Component {
                       value={email}
                       onChange={this.handleChange}
                     />
-                    <span className="invalid-feedback">
-                      {this.errorCheck("email") ? errors.message : ""}
-                      {errors.email ? errors.email : ""}
-                    </span>
+                    <span className="invalid-feedback">{errors.msg}</span>
                   </div>
                   <div className="form-group">
                     <InputField
                       type="password"
                       className={
-                        this.errorCheck("password") || errors.password
+                        errors.type === "password"
                           ? "is-invalid form-control"
                           : "form-control"
                       }
@@ -96,10 +80,7 @@ class Login extends Component {
                       value={password}
                       onChange={this.handleChange}
                     />
-                    <span className="invalid-feedback">
-                      {this.errorCheck("password") ? errors.message : ""}
-                      {errors.password ? errors.password : ""}
-                    </span>
+                    <span className="invalid-feedback">{errors.msg}</span>
                   </div>
                   <input
                     type="submit"

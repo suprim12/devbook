@@ -4,14 +4,18 @@ import store from "./store";
 import "./App.css";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutuser } from "./actions/authActions";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PrivateRoute from "./utils/PrivateRoute";
 // Components
 import Header from "./components/layouts/Header";
 import Footer from "./components/layouts/Footer";
 import Landing from "./components/layouts/Landing";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Dashboard from "./dashboard/Dashboard";
+// Actions
+import { setCurrentUser, logoutuser } from "./actions/authActions";
+import { clearprofile } from "./actions/profileActions";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -26,6 +30,7 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     //logoutuser
     store.dispatch(logoutuser());
+    store.dispatch(clearprofile());
     // redirect
     window.location.href = "/login";
   }
@@ -43,6 +48,7 @@ class App extends Component {
                 <Route exact path="/" component={Landing} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>
             </main>
             <Footer />

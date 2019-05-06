@@ -15,11 +15,21 @@ router.get("/", (req, res) => {
 router.post("/register", (req, res) => {
   // Validation
   const { error } = Validate(req.body);
-  if (error) return res.status(400).json(error.details[0]);
+  if (error) {
+    return res.status(400).json({
+      status: "error",
+      type: error.details[0].path[0],
+      msg: error.details[0].message
+    });
+  }
   // Check Email
   Users.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(400).json({ email: "Email is already Registerd." });
+      return res.status(400).json({
+        status: "error",
+        type: "email",
+        msg: "Email is already registred."
+      });
     } else {
       // Avatar
       const avatar = gravatar.url(req.body.email, {
@@ -53,13 +63,23 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   // Validation
   const { error } = loginValidate(req.body);
-  if (error) return res.status(400).json(error.details[0]);
+  if (error) {
+    return res.status(400).json({
+      status: "error",
+      type: error.details[0].path[0],
+      msg: error.details[0].message
+    });
+  }
   const email = req.body.email;
   const password = req.body.password;
   // Check Email Exist
   Users.findOne({ email: email }).then(user => {
     if (!user) {
-      return res.status(404).json({ email: "Email is not registred." });
+      return res.status(404).json({
+        status: "error",
+        type: "email",
+        msg: "Email is not registred"
+      });
     }
     // Check Password is Correct
     bcrypt.compare(password, user.password).then(isMatch => {
@@ -71,7 +91,11 @@ router.post("/login", (req, res) => {
           res.json({ success: true, token: "Bearer " + token });
         });
       } else {
-        return res.status(400).json({ password: "Password is incorrect" });
+        return res.status(400).json({
+          status: "error",
+          type: "password",
+          msg: "Password is incorrect."
+        });
       }
     });
   });

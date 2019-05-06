@@ -65,7 +65,7 @@ router.post(
           // Check liked or not
           if (
             post.likes.filter(like => like.user.toString() === req.user.id)
-              .lenght > 0
+              .length > 0
           ) {
             return res.status(400).json("Already liked the posts.");
           }
@@ -89,7 +89,7 @@ router.post(
           // Check liked or not
           if (
             post.likes.filter(like => like.user.toString() === req.user.id)
-              .lenght === 0
+              .length === 0
           ) {
             return res.status(400).json("Not yet liked posts");
           }

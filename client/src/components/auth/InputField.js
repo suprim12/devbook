@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import PropTypes from "prop-types";
 class InputField extends Component {
   render() {
     const {
@@ -26,5 +26,12 @@ class InputField extends Component {
     );
   }
 }
-
+InputField.propTypes = {
+  type: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
+};
 export default InputField;

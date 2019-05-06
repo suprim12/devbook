@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutuser } from "../../actions/authActions";
+import { clearprofile } from "../../actions/profileActions";
 class Header extends Component {
   handleLogout = e => {
     e.preventDefault();
     this.props.logoutuser();
+    this.props.clearprofile();
   };
   render() {
     const { isAuthenticate, user } = this.props.auth;
@@ -65,5 +67,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { logoutuser }
+  { logoutuser, clearprofile }
 )(Header);
