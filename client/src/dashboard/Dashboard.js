@@ -23,7 +23,7 @@ class Dashboard extends Component {
         // User logged but no profile
         dashboardContent = (
           <div>
-            <p class="lead text-muted">Welcome {user.name}</p>
+            <p className="lead text-muted">Welcome {user.name}</p>
             <p>Please Create Profile.</p>
             <Link to="/create-profile" className="btn btn-primary mt-5">
               Create Profile
