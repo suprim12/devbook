@@ -130,21 +130,21 @@ function profileValidation(profile) {
       .min(3)
       .max(40)
       .required(),
-    company: Joi.string().optional(),
-    website: Joi.string().optional(),
-    location: Joi.string().optional(),
+    company: Joi.allow(),
+    website: Joi.allow(),
+    location: Joi.allow(),
     status: Joi.string()
       .min(3)
       .required(),
     skills: Joi.string().required(),
-    bio: Joi.string().optional(),
-    githubusername: Joi.string().optional(),
-    youtube: Joi.string(),
-    facebook: Joi.string(),
-    twitter: Joi.string(),
-    instagram: Joi.string(),
-    linkedin: Joi.string(),
-    behance: Joi.string()
+    bio: Joi.allow(),
+    githubusername: Joi.allow(),
+    youtube: Joi.allow(),
+    facebook: Joi.allow(),
+    twitter: Joi.allow(),
+    instagram: Joi.allow(),
+    linkedin: Joi.allow(),
+    behance: Joi.allow()
   };
 
   return Joi.validate(profile, schema);

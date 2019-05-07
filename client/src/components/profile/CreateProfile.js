@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import InputField from "../auth/InputField";
 import SocialField from "./SocialField";
+import { createprofile } from "../../actions/profileActions";
+import { withRouter } from "react-router-dom";
 class CreateProfile extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,13 @@ class CreateProfile extends Component {
       errors: {}
     };
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -31,6 +40,23 @@ class CreateProfile extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
+    const profileData = {
+      handle: this.state.handle,
+      company: this.state.company,
+      website: this.state.website,
+      location: this.state.location,
+      bio: this.state.bio,
+      githubusername: this.state.githubusername,
+      status: this.state.status,
+      skills: this.state.skills,
+      youtube: this.state.youtube,
+      facebook: this.state.facebook,
+      twitter: this.state.twitter,
+      linkedin: this.state.linkedin,
+      behance: this.state.behance,
+      instagram: this.state.instagram
+    };
+    this.props.createprofile(profileData, this.props.history);
   };
   handleDisplaySocial = e => {
     e.preventDefault();
@@ -88,12 +114,11 @@ class CreateProfile extends Component {
                       value={handle}
                       onChange={this.handleChange}
                       placeholder="Enter a unique handle name."
-                      required
                     />
+                    <span className="invalid-feedback">{errors.msg}</span>
                     <small className="form-text text-muted">
                       You must have unique name for you.
                     </small>
-                    <span className="invalid-feedback">{errors.msg}</span>
                   </div>
                   <div className="form-group">
                     <InputField
@@ -175,7 +200,15 @@ class CreateProfile extends Component {
                   </div>
                   <div className="form-group">
                     <span className="form-text-lg">*</span>
-                    <select className="form-control">
+                    <select
+                      className={
+                        errors.type === "status"
+                          ? "is-invalid form-control"
+                          : "form-control"
+                      }
+                      name="status"
+                      onChange={this.handleChange}
+                    >
                       {options.map(item => (
                         <option
                           label={item.label}
@@ -186,6 +219,7 @@ class CreateProfile extends Component {
                         </option>
                       ))}
                     </select>
+                    <span className="invalid-feedback">{errors.msg}</span>
                     <small className="form-text text-muted">
                       Where are you at your carrer.
                     </small>
@@ -206,6 +240,7 @@ class CreateProfile extends Component {
                     <small className="form-text text-muted">
                       Enter comma sepreated skills. eg: js,css...
                     </small>
+                    <span className="invalid-feedback">{errors.msg}</span>
                   </div>
                   <div className="form-group">
                     <button
@@ -277,4 +312,9 @@ const mapStateToProps = state => ({
   profile: state.profile,
   errors: state.errors
 });
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  {
+    createprofile
+  }
+)(withRouter(CreateProfile));

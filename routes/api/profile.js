@@ -15,8 +15,6 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors } = Validate(req.body);
-    if (errors) return res.status(400).send(errors.details[0].message);
     Profile.findOne({ user: req.user.id })
       .then(profile => {
         if (!profile) {
@@ -33,7 +31,13 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { error } = Validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+      return res.status(400).json({
+        status: "error",
+        type: error.details[0].path[0],
+        msg: error.details[0].message
+      });
+    }
     const newProfile = {};
     newProfile.user = req.user.id;
     newProfile.handle = req.body.handle;
@@ -63,7 +67,7 @@ router.post(
             { user: req.user.id },
             { $set: newProfile },
             { new: true }
-          ).then(profile => res.json(profile));
+          ).then(profile => res.json({ profile }));
         } else {
           // Create
           //-- Check Handle
@@ -71,7 +75,11 @@ router.post(
             .then(profile => {
               // Handle Already There
               if (profile) {
-                res.status(400).json({ handle: "Handle Already Exist" });
+                res.status(400).json({
+                  status: "error",
+                  type: "handle",
+                  msg: "Handle is already taken."
+                });
               } else {
                 // Save
                 new Profile(newProfile)
