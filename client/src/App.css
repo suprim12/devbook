@@ -34,7 +34,7 @@ html, body, form, main {
     font-size: 0.85rem;
 }
 .app-footer{
-    position: fixed;
+    margin-top: 2rem;
     width: 100%;
     background-color: #343A40;
     bottom: 0;
@@ -150,4 +150,7 @@ html, body, form, main {
 }
 .avatar{
     border-radius: 50%;
+}
+table ,tr,th{
+    color:snow;
 }

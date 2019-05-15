@@ -11,7 +11,7 @@ const db = require("./config/keys").mongoURI;
 // Passport Config
 require("./config/passport.js")(passport);
 // Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.Router());
 app.use(passport.initialize());
@@ -24,6 +24,7 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log(`Connected to db`))
   .catch(err => console.error(`Connection Error ${err}`));
+mongoose.Promise = global.Promise;
 app.get("/", (req, res) => {
   res.send("Hello World");
 });

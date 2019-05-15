@@ -11,10 +11,14 @@ class Header extends Component {
   };
   render() {
     const { isAuthenticate, user } = this.props.auth;
+    const { profile } = this.props.profile;
     const authLinks = (
       <ul className="navbar-nav">
         <li className="nav-item">
-          <NavLink to="/register" className="nav-link">
+          <Link
+            to={`/profile/${profile ? profile.handle : ""}`}
+            className="nav-link"
+          >
             <img
               src={user.avatar}
               alt={user.name}
@@ -23,7 +27,7 @@ class Header extends Component {
               height="24"
               className="d-inline-block align-top avatar"
             />
-          </NavLink>
+          </Link>
         </li>
         <li className="nav-item">
           <a href="/" className="nav-link" onClick={this.handleLogout}>
@@ -52,7 +56,7 @@ class Header extends Component {
         <nav className="navbar navbar-expand bg-dark navbar-dark p-1">
           <div className="container">
             <Link to="/" className="navbar-brand">
-              Dev Book{" "}
+              Dev Book
               <span className="badge badge-primary badge-pill">MERN</span>
             </Link>
             {isAuthenticate ? authLinks : guestLinks}
@@ -63,6 +67,7 @@ class Header extends Component {
   }
 }
 const mapStateToProps = state => ({
+  profile: state.profile,
   auth: state.auth
 });
 export default connect(

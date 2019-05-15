@@ -154,10 +154,10 @@ function exprienceValidation(exp) {
     title: Joi.string().required(),
     company: Joi.string().required(),
     location: Joi.string(),
-    current: Joi.string(),
+    current: Joi.optional(),
     from: Joi.string().required(),
-    to: Joi.string(),
-    description: Joi.string()
+    to: Joi.optional(),
+    description: Joi.optional()
   };
   return Joi.validate(exp, schema);
 }
@@ -167,10 +167,10 @@ function educationValidationteEdu(exp) {
     degree: Joi.string().required(),
     field: Joi.string(),
     location: Joi.string(),
-    current: Joi.string(),
+    current: Joi.optional(),
     from: Joi.string().required(),
-    to: Joi.string(),
-    description: Joi.string()
+    to: Joi.optional(),
+    description: Joi.optional()
   };
   return Joi.validate(exp, schema);
 }

@@ -63,5 +63,5 @@ function postValidation(post) {
   };
   return Joi.validate(post, schema);
 }
-exports.Posts = Posts;  
+exports.Posts = Posts;
 exports.Validate = postValidation;

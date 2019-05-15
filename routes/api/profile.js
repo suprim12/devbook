@@ -20,7 +20,7 @@ router.get(
         if (!profile) {
           return res.status(404).send("No profile");
         }
-        res.json({ profile });
+        res.json(profile);
       })
       .catch(err => console.error(err));
   }
@@ -67,7 +67,7 @@ router.post(
             { user: req.user.id },
             { $set: newProfile },
             { new: true }
-          ).then(profile => res.json({ profile }));
+          ).then(profile => res.json(profile));
         } else {
           // Create
           //-- Check Handle
@@ -84,7 +84,7 @@ router.post(
                 // Save
                 new Profile(newProfile)
                   .save()
-                  .then(profile => res.json({ profile }))
+                  .then(profile => res.json(profile))
                   .catch(err => console.error(err));
               }
             })
@@ -102,7 +102,7 @@ router.get("/handle/:handle", (req, res) => {
       if (!profile) {
         return res.status(404).send("No profile found for this user.");
       }
-      res.json(profile);
+      return res.json(profile);
     })
     .catch(err => res.status(400).json(err));
 });
@@ -114,19 +114,19 @@ router.get("/user/:id", (req, res) => {
       if (!profile) {
         return res.status(404).send("No profile found for this user.");
       }
-      res.json(profile);
+      return res.json(profile);
     })
     .catch(err => res.status(400).json({ profile: "No Profile for users" }));
 });
 // All profiles
 router.get("/all", (req, res) => {
   Profile.find()
-    .populate("users", ["name", "avatar"])
+    .populate("user", ["name", "avatar"])
     .then(profiles => {
       if (!profiles) {
-        return res.status(404).send("No Profils Found.00");
+        return res.status(404).send("No Profiles Found.");
       }
-      res.json(profiles);
+      return res.json(profiles);
     })
     .catch(err => res.status(400).json({ profile: "No Profiles found" }));
 });
@@ -136,7 +136,12 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { error } = ValidateExp(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error)
+      return res.status(400).json({
+        status: "error",
+        type: error.details[0].path[0],
+        msg: error.details[0].message
+      });
     Profile.findOne({ user: req.user.id }).then(profile => {
       const newExp = {
         title: req.body.title,
@@ -159,7 +164,13 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { error } = ValidateEdu(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+      return res.status(400).json({
+        status: "error",
+        type: error.details[0].path[0],
+        msg: error.details[0].message
+      });
+    }
     Profile.findOne({ user: req.user.id }).then(profile => {
       const newEdu = {
         school: req.body.school,
@@ -195,7 +206,9 @@ router.delete(
           .then(profile => res.json(profile))
           .catch(err => res.status(404).json(err));
       } else {
-        res.status(404).send("Invalid Id don't do hacking we will find you.");
+        return res
+          .status(404)
+          .send("Invalid Id don't do hacking we will find you.");
       }
     });
   }
@@ -219,7 +232,9 @@ router.delete(
           .then(profile => res.json(profile))
           .catch(err => res.status(404).json(err));
       } else {
-        res.status(404).send("Invalid Id don't do hacking we will find you.");
+        return res
+          .status(404)
+          .send("Invalid Id don't do hacking we will find you.");
       }
     });
   }
@@ -233,7 +248,7 @@ router.delete(
       // Users.findOneAndRemove({ _id: req.user.id }).then(() => {
       //   res.json({ success: true });
       // });
-      res.json({ success: true });
+      return res.json({ success: true });
     });
   }
 );
